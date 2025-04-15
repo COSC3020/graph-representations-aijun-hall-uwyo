@@ -3,7 +3,8 @@ const jsc = require('jsverify');
 
 eval(fs.readFileSync('code.js')+'');
 
-const test =
+// Test 1: Make sure my code functions identically to given answer code
+const testDefault =
     jsc.forall("array (pair nat nat)", function(edges) {
         var max = edges.reduce(function(a, b) { return Math.max(a, Math.max(b[0], b[1])); }, 0);
         var mat = [];
@@ -27,4 +28,33 @@ const test =
         }
         return JSON.stringify(list) == JSON.stringify(convertToAdjList(mat));
     });
-jsc.assert(test, { tests: 1000 });
+
+// Test 2: Test empty graph, no nodes
+const testEmpty =
+    jsc.forall(jsc.constant([]), function(emptyMatrix) {
+        const a1 = [];
+        return JSON.stringify(convertToAdjList(emptyMatrix)) == JSON.stringify(a1);
+    })
+
+// Test 3: Hardcoded expected value test
+const testExpected =
+    jsc.forall(jsc.constant(true), function () {
+        const a1 = [
+            [1, 0, 1], // Node 0 -> 0, 2
+            [0, 0, 1], // Node 1 -> 2
+            [0, 0, 0]  // Node 2 -> None
+        ];
+        const a2 = [
+            [0, 2],
+            [2],
+            []
+        ];
+        return JSON.stringify(convertToAdjList(a1)) == JSON.stringify(a2);
+    });
+
+jsc.assert(testDefault, { tests: 1000 });
+console.log("testDefault passed.");
+jsc.assert(testEmpty, { tests: 1 });
+console.log("testEmpty passed.");
+jsc.assert(testExpected, { tests: 1});
+console.log("testExpected passed.");
