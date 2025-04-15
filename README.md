@@ -28,3 +28,7 @@ In terms of verticies and edges, the input is a matrix where the number of verti
 Checking the verticies or the nodes is the important part, since that is the determining input element `n`. When edges are checked, the only resulting operation is a $O(1)$ action for pushing onto the return conversion list.
 
 Therefore you could say the algorithm also runs in $O(V^2)$ time, since again- verticies and nodes are synonymous. The runtime only depends on the number of verticies, not the number of edges.
+
+- Referenced https://www.geeksforgeeks.org/adjacency-matrix/ for additional reading and info on adjacency matrixs
+
+"I certify that I have listed all sources used to complete this exercise, including the use of any Large Language Models. All of the work is my own, except where stated otherwise. I am aware that plagiarism carries severe penalties and that if plagiarism is suspected, charges may be filed against me without prior notice."
